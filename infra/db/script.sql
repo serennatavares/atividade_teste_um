@@ -1,7 +1,5 @@
 CREATE DATABASE sistema_simples_m1;
 
-USE sistema_simples_m1;
-
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(87) NOT NULL,

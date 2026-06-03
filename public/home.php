@@ -4,21 +4,28 @@ if(!isset($_SESSION["usuario"])){
     header("Location: ../index.php");
     exit();
 }
+// Verifica se o usuário está logado, caso contrário, redireciona para a página de login
 
 include("../infra/db/connect.php");
+// Inclui o arquivo de conexão com o banco de dados
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $novoUsuario = $_POST['usuario'];
     $novaSenha = $_POST['senha'];
 
+    // Verifica se os campos de usuário e senha foram preenchidos
+
     $sql = "INSERT INTO usuarios (usuario,senha) 
     VALUES ('$novoUsuario','$novaSenha')";  
+    // Prepara a consulta SQL para inserir um novo usuário na tabela "usuarios"
 
     if($conn->query($sql) === TRUE){
         echo "<script> alert('Usuário cadastrado com sucesso!')</script>";
     }else{
         echo "<script> alert('Erro ao cadastrar')</script>";
     }
+
+    // Executa a consulta SQL e exibe uma mensagem de sucesso ou erro dependendo do resultado
 
 };
 
@@ -31,7 +38,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Home</title>
 </head>
 <body>
-    <h3>Bem-Vindo! <?php echo $_SESSION["usuario"]; ?></h3>
+    <h3>Bem-Vindo! <?php echo $_SESSION["usuario"]; ?></h3> 
+    // Exibe uma mensagem de boas-vindas com o nome do usuário logado, utilizando a variável de sessão "usuario"
     <a href="logout.php"> Sair</a>
 
     <hr>
@@ -48,6 +56,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(isset($erro)){
                 echo $erro;
             };
+
+            // Verifica se a variável de erro está definida e, se estiver, exibe a mensagem de erro
         
         ?>
         <br>
@@ -57,6 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <?php
     
     include("components/table.php")
+    // Inclui o arquivo que contém a tabela de usuários cadastrados, que é preenchida dinamicamente com os dados do banco de dados
 
     ?>
 
