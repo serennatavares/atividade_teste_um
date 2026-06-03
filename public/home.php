@@ -6,7 +6,7 @@ if(!isset($_SESSION["usuario"])){
 }
 // Verifica se o usuário está logado, caso contrário, redireciona para a página de login
 
-include("../infra/db/connect.php");
+
 // Inclui o arquivo de conexão com o banco de dados
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
