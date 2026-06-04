@@ -4,12 +4,14 @@
     // Endereço do servidor do banco de dados (geralmente "localhost" para servidores locais)
     $user = "root";
     // Nome de usuário do banco de dados (geralmente "root" para servidores locais)
-    $pass = "root";
+    $pass = "";
     // Senha do banco de dados (geralmente "root" para servidores locais)
     $db = "sistema_simples_m1";
     // Nome do banco de dados que será utilizado
 
-    $conn = new mysqli($host,$user,$pass,$db);
+    $port = 3308;
+
+    $conn = new mysqli($host,$user,$pass,$db,$port);
     // Cria uma nova conexão com o banco de dados
 
     if($conn->connect_error){
