@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    include("components/start.php")
 
     // Inicia sessão
 
