@@ -1,6 +1,6 @@
 <?php
 include("components/start.php");
-include("infra/db/connect.php");
+include("..infra/db/connect.php");
 
 $id = $_GET["id"];
 ?>
@@ -25,3 +25,4 @@ $id = $_GET["id"];
 
 </body>
 </html>
+

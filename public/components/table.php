@@ -1,7 +1,6 @@
-<h4>Usuários Cadastrados</h4>
+<h4>Usuários Cadastrados</h4> <!--titulo da tabela -->
 
-<table border="1" cellpadding="3">
-    // Cabeçalho da tabela
+<table border="1" cellpadding="3"> <!-- Cria a tabela -->
 
     <tr>
         <th>ID</th>
@@ -11,34 +10,28 @@
         <th>Excluir</th>
     </tr>
 
-    // Corpo da tabela preenchido dinamicamente com os dados do banco de dados
-
     <?php
     
-    $sqlTodosUsuarios = "SELECT * FROM usuarios";
-    // Consulta SQL para selecionar todos os registros da tabela "usuarios"
+    $sqlTodosUsuarios = "SELECT * FROM usuarios"; // Busca todos os usuários cadastrados
 
-    $resultadoTodosUsuarios = $conn->query($sqlTodosUsuarios);
-    // Executa a consulta SQL e armazena o resultado em uma variável
+    $resultadoTodosUsuarios = $conn->query($sqlTodosUsuarios); // Executa a consulta
 
-    while($linha = $resultadoTodosUsuarios->fetch_assoc()){
+    while($linha = $resultadoTodosUsuarios->fetch_assoc()){ // Percorre todos os registros retornados
 
-    // o fetch assoc
+    // fetch_assoc() transforma cada linha em um array associativo
 
-         echo "  <tr>
+        echo "  <tr>
                     <td>". $linha['id'] . "</td>
                     <td>". $linha['usuario'] . "</td>
                     <td>". $linha['senha'] . "</td>
-                    <td><a href='update.php?id=" . $linha['id'] . "'>Editar</a></td> // links para página de atualizar usuario e senha  
-                    <td><a href='../confirmar_excluir.php?id=" . $linha['id'] . "'>Excluir</a></td> // links para página de excluir usuario e senha  
-
+                    <td><a href='update.php?id=". $linha['id'] . "'>Editar</a></td>
+                    <td><a href='confirmar_excluir.php?id=". $linha['id'] . "'>Excluir</a></td>
                 </tr>
         ";
-
 
     }
     
     ?>
 
-
+    
 </table>
