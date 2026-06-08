@@ -10,6 +10,8 @@ $sql = " DELETE FROM usuarios WHERE id = $id ";
 
 if($conn->query($sql) === TRUE){
     header("Location: home.php");
+}else{
+    echo "Erro ao excluir usuário:":
     exit();
 }
 
