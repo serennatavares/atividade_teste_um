@@ -9,7 +9,11 @@ $id = $_GET["id"];
 $sql = " DELETE FROM usuarios WHERE id = $id ";
 
 if($conn->query($sql) === TRUE){
-    header("Location: home.php");
+
+echo "<script>
+        alert('Usuário excluído com sucesso!');
+        window.location='home.php';
+      </script>"; 
     exit();
 }
 

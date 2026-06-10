@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($conn->query($sql) === TRUE){
         echo "<script> alert('Usuário cadastrado com sucesso!')</script>";
     }else{
-        echo "<script> alert('Erro ao cadastrar')</script>";
+        echo "<script> alert('Ops, ocorreu um erro ao tentar cadastrar. Tente novamente!')</script>";
     }
 
     // Executa a consulta SQL e exibe uma mensagem de sucesso ou erro dependendo do resultado
@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Verifica se a variável de erro está definida e, se estiver, exibe a mensagem de erro
 
             if($_POST['senha'] != $_POST['confirmar_senha']){
-            echo "As senhas não coincidem!";
+            echo "Eita!! As senhas não coincidem... Tente novamente";
 
             }
 

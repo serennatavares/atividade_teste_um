@@ -28,6 +28,9 @@
             // Verifica se a consulta retornou algum resultado (usuário e senha válidos)
             $_SESSION["usuario"] = $usuario;
             // Armazena o nome do usuário na sessão para manter o usuário logado
+
+            $_SESSION["sucesso"] = "Login realizado com sucesso! Bem-vindo(a), $usuario.";
+            
             header("Location: public/home.php");
             // Redireciona o usuário para a página "home.php" após o login bem-sucedido
             exit();
