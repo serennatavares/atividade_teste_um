@@ -31,8 +31,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Home</title>
 </head>
 <body>
-    <h3>Bem-Vindo! <?php echo $_SESSION["usuario"]; ?></h3> 
-    // Exibe uma mensagem de boas-vindas com o nome do usuário logado, utilizando a variável de sessão "usuario"
+
+// Exibe uma mensagem de boas-vindas com o nome do usuário logado, utilizando a variável de sessão "usuario"
     <a href="logout.php"> Sair</a>
 
     <hr>
@@ -44,6 +44,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <label>Senha:</label>
         <input type="password" name="senha">
         <br>
+        label>Confirmar Senha:</label>
+        <input type="password" name="confirmar_senha">
         <?php
         
             if(isset($erro)){
@@ -51,6 +53,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             };
 
             // Verifica se a variável de erro está definida e, se estiver, exibe a mensagem de erro
+
+            if($_POST['senha'] != $_POST['confirmar_senha']){
+            echo "As senhas não coincidem!";
+
+            }
+
+            // Verifica se as senhas digitadas nos campos "senha" e "confirmar_senha" são iguais, e exibe uma mensagem de erro caso contrário
         
         ?>
         <br>
