@@ -1,10 +1,8 @@
 <?php
 
-    include("components/start.php")
-    session_destroy();
-    header("Location: ../index.php");
-    exit();
-
-    // Inicia a sessão, destrói todas as variáveis de sessão e redireciona o usuário para a página de login (index.php)
+    session_start(); // Inicia a sessão atual
+    session_destroy();  // Remove todos os dados da sessão
+    header("Location: ../index.php"); // Redireciona para a tela de login
+    exit(); // Encerra o script
 
 ?>

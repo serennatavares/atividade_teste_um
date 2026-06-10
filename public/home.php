@@ -1,27 +1,31 @@
 <?php
-include("components/start.php")
-// Verifica se o usuário está logado, caso contrário, redireciona para a página de login
+include("components/start.php");
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $novoUsuario = $_POST['usuario'];
-    $novaSenha = $_POST['senha'];
+include("../infra/db/connect.php"); // Conecta ao banco de dados
 
-    // Verifica se os campos de usuário e senha foram preenchidos
+if($_SERVER["REQUEST_METHOD"] == "POST"){ // Verifica se o formulário de cadastro foi enviado
 
-    $sql = "INSERT INTO usuarios (usuario,senha) 
-    VALUES ('$novoUsuario','$novaSenha')";  
-    // Prepara a consulta SQL para inserir um novo usuário na tabela "usuarios"
+    $novoUsuario = $_POST['usuario']; // Recebe o usuário digitado
+    $novaSenha = $_POST['senha']; // Recebe a senha digitada
+    $confirmarSenha = $_POST["confirmar_senha"]; // Recebe a confirmação de senha
 
-    if($conn->query($sql) === TRUE){
-        echo "<script> alert('Usuário cadastrado com sucesso!')</script>";
-    }else{
-        echo "<script> alert('Ops, ocorreu um erro ao tentar cadastrar. Tente novamente!')</script>";
+    // Verifica se as senhas são iguais ANTES de inserir no banco
+    if($novaSenha != $confirmarSenha){
+        echo "<script>alert('Eita!! As senhas não coincidem... Tente novamente');</script>"; // Mensagem de erro
+    } else {
+
+        // Comando SQL para inserir novo usuário
+        $sql = "INSERT INTO usuarios (usuario, senha)
+                VALUES ('$novoUsuario', '$novaSenha')";
+
+        // Executa o INSERT
+        if($conn->query($sql) === TRUE){
+            echo "<script>alert('Usuário cadastrado com sucesso!');</script>"; // Mensagem de sucesso
+        } else {
+            echo "<script>alert('Ops, ocorreu um erro ao tentar cadastrar. Tente novamente!');</script>"; // Mensagem de erro
+        }
     }
-
-    // Executa a consulta SQL e exibe uma mensagem de sucesso ou erro dependendo do resultado
-
-};
-
+}
 ?>
 
 <html lang="en">
@@ -31,12 +35,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Home</title>
 </head>
 <body>
-
-// Exibe uma mensagem de boas-vindas com o nome do usuário logado, utilizando a variável de sessão "usuario"
-    <a href="logout.php"> Sair</a>
+    <h3>Bem-Vindo <?php echo $_SESSION["usuario"]; ?> ! Tomara que tenha uma ótima experiência.</h3>  <!-- Exibe o usuário logado -->
+    <a href="logout.php"> Sair</a> <!-- Link para encerrar a sessão -->
 
     <hr>
-    <h4>Cadastro de Novo Usuário.</h4>
+    <h4>Cadastro de Novo Usuário.</h4> <!-- Formulário para cadastrar usuários -->
     <form method="POST">
         <label>Usuário:</label>
         <input type="text" name="usuario">
@@ -44,22 +47,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <label>Senha:</label>
         <input type="password" name="senha">
         <br>
-        label>Confirmar Senha:</label>
+        <label>Confirmar Senha:</label>
         <input type="password" name="confirmar_senha">
+   
         <?php
         
             if(isset($erro)){
                 echo $erro;
             };
-
-            // Verifica se a variável de erro está definida e, se estiver, exibe a mensagem de erro
-
-            if($_POST['senha'] != $_POST['confirmar_senha']){
-            echo "Eita!! As senhas não coincidem... Tente novamente";
-
-            }
-
-            // Verifica se as senhas digitadas nos campos "senha" e "confirmar_senha" são iguais, e exibe uma mensagem de erro caso contrário
         
         ?>
         <br>
@@ -68,12 +63,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <hr>
     <?php
     
-    include("components/table.php")
-    // Inclui o arquivo que contém a tabela de usuários cadastrados, que é preenchida dinamicamente com os dados do banco de dados
+    include("components/table.php") // Inclui a tabela que lista os usuários cadastrados
 
     ?>
-
-
-
+    
 </body>
 </html>

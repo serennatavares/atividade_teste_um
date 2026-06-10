@@ -1,43 +1,24 @@
 <?php
-    include("components/start.php")
+    session_start(); //inicia uma sessão 
 
-    // Inicia sessão
+    include("infra/db/connect.php"); // inclui o arquivo que conecta com o banco de dados 
 
-    include("infra/db/connect.php");
+    if($_SERVER['REQUEST_METHOD'] == "POST"){ //SE o formulário for enviado por POST ele vai executar o resto 
 
-    // Inclui o arquivo que cria a conexão com o banco de dados
-
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-
-    // Verifica se o formulário foi enviado utilizando método POST
-
-        $usuario = $_POST["usuario"];
+        $usuario = $_POST["usuario"]; //recebe as variáveis enviadas pelo formulário 
         $senha = $_POST["senha"];
-
-        // Armazena os valores do formulário em variáveis
         
-        $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
+        $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'"; //consulta no banco de dados por um usuário com o login e senha informados
 
-        // Cria a consulta SQL para verificar se o usuário e senha existem na tabela "usuarios"
+        $resultado = $conn->query($sql); //Executa a consulta SQL 
 
-        $resultado = $conn->query($sql);
-
-        // Executa a consulta e armazena o resultado
-
-        if ($resultado->num_rows > 0){
-            // Verifica se a consulta retornou algum resultado (usuário e senha válidos)
-            $_SESSION["usuario"] = $usuario;
-            // Armazena o nome do usuário na sessão para manter o usuário logado
-
-            $_SESSION["sucesso"] = "Login realizado com sucesso! Bem-vindo(a), $usuario.";
+        if ($resultado->num_rows > 0){ // verifica se foi encontrado o usuário e sennha no banco de dados 
+            $_SESSION["usuario"] = $usuario; // Armazena o nome do usuário na sessão
             
-            header("Location: public/home.php");
-            // Redireciona o usuário para a página "home.php" após o login bem-sucedido
+            header("Location: public/home.php"); // Redireciona para a página inicial do sistema
             exit();
-            // Encerra o script para evitar que o código abaixo seja executado após o redirecionamento
         }else{
-            $erro = "Usuário ou senha inválidos!";
-            // Define a variável $erro com uma mensagem de erro para exibir ao usuário
+            $erro = "Ops! Usuário ou senha incorretos. Tente novamente."; //mensagem de erro caso o usuário e/ou senha não sejam encontrados no banco de dados 
         }
     }
 ?>
@@ -49,22 +30,22 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>Sitema de Login Simples</h1>
+    <h1>Sitema de Login Simples</h1>  
 
-    <form method="POST">
+    <form method="POST">    <!-- formulário com usuário e senha para login --> 
         <label>Usuário:</label>
         <input type="text" name="usuario">
         <br>
         <label>Senha:</label>
         <input type="password" name="senha">
         <br>
-        <?php
-        
-            if(isset($erro)){
-                echo $erro;
-            };
-        
-        ?>
+            <?php
+            
+                if(isset($erro)){
+                    echo $erro;
+                };
+
+            ?>
         <br>
         <button type="submit">Entrar</button>
     </form>

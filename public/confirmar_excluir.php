@@ -16,7 +16,7 @@ $id = $_GET["id"];
     <h2>⚠️ Atenção!</h2>
 <p>Tem certeza que deseja remover este usuário do sistema?</p>
 
-    <a href="excluir.php?id=<?php echo $id;?>">
+    <a href="excluir.php?id=<?php echo $id; ?>">
         <button>Sim, excluir</button>
     </a>
 
@@ -26,4 +26,3 @@ $id = $_GET["id"];
 
 </body>
 </html>
-

@@ -1,14 +1,14 @@
 <?php
 //Abre um bloco de código PHP.
-include("components/start.php")
-//Inicia uma nova sessão ou retoma a sessão existente. Isso é necessário para acessar as variáveis de sessão.
+
+include("components/start.php");
 
 include("../infra/db/connect.php");
 //Pega o conteúdo do arquivo connect.php e coloca aqui. Esse arquivo contém a conexão com o banco de dados.
 
-$id = $_GET['id'];
+$id = $_GET["id"];
 
-$$sql = "SELECT * FROM usuarios WHERE id = $id";
+$sql = "SELECT * FROM usuarios WHERE id = $id";
 $resultado = $conn -> query($sql);
 $usuario = $resultado -> fetch_assoc();
 
@@ -19,16 +19,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $sqlUpdate = " UPDATE usuarios SET usuario = '$novoUsuario', senha = '$novaSenha' WHERE id = $id";
 
     if($conn -> query($sqlUpdate) === TRUE){
-
-    echo "<script>
+       echo "<script>
             alert('Usuário atualizado com sucesso!');
             window.location='home.php';
           </script>";
-    exit();
+        exit();
     }
 
 
 }
+
+?>
 
 <html lang="en">
 <head>
@@ -50,6 +51,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <button type="submit">Salvar</button>
     </form>
     
+    
+
 </body>
 </html>
 
